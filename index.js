@@ -5,7 +5,14 @@ const mongoose = require('mongoose');
 const quizSchema = require('./quizSchema')
 const quiz = mongoose.model('quiz', quizSchema);
 require('dotenv').config()
+const cors = require('cors');
 
+const corsOption = {
+    origin: ['http://localhost:3000'],
+};
+
+app.use(cors(corsOption));
+app.use(cors())
 app.use(express.json());
 
 app.get('/', (req, res) => {
