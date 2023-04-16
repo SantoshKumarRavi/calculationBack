@@ -8,7 +8,7 @@ require('dotenv').config()
 const cors = require('cors');
 
 const corsOption = {
-    origin: ['http://localhost:3000'],
+    origin:"*",
 };
 
 app.use(cors(corsOption));
@@ -24,6 +24,7 @@ app.post('/create',async (req, res) => {
   await QuizDoc.save().then((val)=>{
     res.send('doc created')
   }).catch((err)=>{
+    console.log("err",err);
     res.send('err while created')
   })
 
