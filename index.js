@@ -4,6 +4,8 @@ const port = 3000
 const mongoose = require('mongoose');
 const quizSchema = require('./quizSchema')
 const quiz = mongoose.model('quiz', quizSchema);
+const formSchema=require("./formSchema")
+const form = mongoose.model('form', formSchema);
 require('dotenv').config()
 const cors = require('cors');
 
@@ -19,6 +21,25 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
+//form
+app.post('/form',async (req, res) => {
+  const FormDoc = new form(req.body);
+  await FormDoc.save().then((val)=>{
+    res.send('doc created')
+  }).catch((err)=>{
+    console.log("err",err);
+    res.send('err while created')
+  })
+})
+app.get('/form',async (req, res) => {
+  await form.find({}).then((val)=>{
+    res.send(val) 
+  }).catch((err)=>{
+    res.send('err while fetched')
+  })
+})
+
+
 app.post('/create',async (req, res) => {
   const QuizDoc = new quiz(req.body);
   await QuizDoc.save().then((val)=>{
@@ -27,7 +48,6 @@ app.post('/create',async (req, res) => {
     console.log("err",err);
     res.send('err while created')
   })
-
 })
 app.get('/create',async (req, res) => {
   await quiz.find({}).then((val)=>{
