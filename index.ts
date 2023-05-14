@@ -50,6 +50,22 @@ app.put('/calculation',async (req:Request, res:Response) => {
     res.send('err while fetched')
   })
 })
+app.delete('/calculation/all',async (req:Request, res:Response) => {
+  let objId=new mongoose.Types.ObjectId(req.body._id)
+  await CalculatorScema.deleteMany({}).then((val:any)=>{
+    res.send("docs deleted") 
+  }).catch((err:any)=>{
+    res.send('err while fetched')
+  })
+})
+app.delete('/calculation',async (req:Request, res:Response) => {
+  let objId=new mongoose.Types.ObjectId(req.body._id)
+  await CalculatorScema.findOneAndDelete({_id:objId}).then((val:any)=>{
+    res.send("doc deleted") 
+  }).catch((err:any)=>{
+    res.send('err while fetched')
+  })
+})
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
