@@ -5,4 +5,5 @@ const calculationSchema = new mongoose.Schema({
     result:String,
   });
 const CalculationHistroy = mongoose.model('history', calculationSchema);
-module.exports=CalculationHistroy
+// module.exports=CalculationHistroy
+export default CalculationHistroy
