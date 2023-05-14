@@ -1,5 +1,5 @@
+import { Request, Response } from 'express';
 const express = require('express')
-import { Request, Response,NextFunction } from 'express';
 const app = express()
 const port = 3000
 const mongoose = require('mongoose');
