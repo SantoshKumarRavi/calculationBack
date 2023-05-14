@@ -1,9 +1,9 @@
 const express = require('express')
+import { Request, Response,NextFunction } from 'express';
 const app = express()
 const port = 3000
 const mongoose = require('mongoose');
-const quizSchema = require('./quizSchema')
-const quiz = mongoose.model('quiz', quizSchema);
+const CalculatorScema = require('./CalculatorScema')
 
 require('dotenv').config()
 const cors = require('cors');
@@ -16,45 +16,37 @@ app.use(cors(corsOption));
 app.use(cors())
 app.use(express.json());
 
-app.get('/', (req, res) => {
+app.get('/', (req:Request, res:Response) => {
   res.send('Hello World!')
 })
 
-//form
-// app.post('/form',async (req, res) => {
-//   const FormDoc = new form(req.body);
-//   await FormDoc.save().then((val)=>{
-//     res.send('doc created')
-//   }).catch((err)=>{
-//     console.log("err",err);
-//     res.send('err while created')
-//   })
-// })
-// app.get('/form',async (req, res) => {
-//   await form.find({}).then((val)=>{
-//     res.send(val) 
-//   }).catch((err)=>{
-//     res.send('err while fetched')
-//   })
-// })
+//calculation
+app.post('/calculation',async (req:Request, res:Response) => {
+  const SavedDoc = new CalculatorScema(req.body);
+  await SavedDoc.save().then((val:any)=>{
+    res.send('doc created')
+  }).catch((err:any)=>{
+    console.log("err",err);
+    res.send('err while created')
+  })
+})
+app.get('/calculation',async (req:Request, res:Response) => {
+  await CalculatorScema.find({}).then((val:any)=>{
+    res.send(val) 
+  }).catch((err:any)=>{
+    res.send('err while fetched')
+  })
+})
 
+app.put('/calculation',async (req:Request, res:Response) => {
+  let objId=new mongoose.Types.ObjectId(req.body._id)
+  await CalculatorScema.findOneAndUpdate({_id:objId},req.body).then((val:any)=>{
+    res.send("doc updated") 
+  }).catch((err:any)=>{
+    res.send('err while fetched')
+  })
+})
 
-// app.post('/create',async (req, res) => {
-//   const QuizDoc = new quiz(req.body);
-//   await QuizDoc.save().then((val)=>{
-//     res.send('doc created')
-//   }).catch((err)=>{
-//     console.log("err",err);
-//     res.send('err while created')
-//   })
-// })
-// app.get('/create',async (req, res) => {
-//   await quiz.find({}).then((val)=>{
-//     res.send(val) 
-//   }).catch((err)=>{
-//     res.send('err while fetched')
-//   })
-// })
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
@@ -63,5 +55,5 @@ app.listen(port, () => {
 main().then(()=>console.log("connected db")).catch(err => console.log(err));
 
 async function main() {
-  await mongoose.connect(`mongodb+srv://${process.env.MongoDb_Username}:${process.env.MongoDb_Password}@cluster0.7fr1rmp.mongodb.net/Central?retryWrites=true&w=majority`);//mongodb://127.0.0.1:27017/Quiz
+  await mongoose.connect(`mongodb+srv://${process.env.MongoDb_Username}:${process.env.MongoDb_Password}@cluster0.7fr1rmp.mongodb.net/Central?retryWrites=true&w=majority`);
 }
