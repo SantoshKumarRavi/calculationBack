@@ -1,17 +1,13 @@
 {
-  "ts-node": {
-    "compilerOptions": {
-      "esModuleInterop": true,                            
-      "forceConsistentCasingInFileNames": true,            
-      "allowSyntheticDefaultImports": true,
-      "strict": true,                                     
-      "skipLibCheck": true,
-      "module": "CommonJS",
-      "target": "es6"                        
-    },
-  },  
   "compilerOptions": {
-    "module": "esnext"
+    "module": "esnext",
+    // "esModuleInterop": true,                            
+    "forceConsistentCasingInFileNames": true,            
+    "allowSyntheticDefaultImports": true,
+    "strict": true,                                     
+    "skipLibCheck": true,
+    "target": "es6",
+    "moduleResolution":"nodenext",
   }
 
   // "include": ["/**/*.ts"],

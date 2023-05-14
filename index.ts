@@ -1,12 +1,16 @@
 import { Request, Response } from 'express';
-const express = require('express')
+import mongoose from "mongoose";
+import express from "express"
+import dotenv from "dotenv"
+import cors from "cors"
+import CalculatorScema from './CalculatorScema.js';
 const app = express()
 const port = 3000
-const mongoose = require('mongoose');
-const CalculatorScema = require('./CalculatorScema')
+// const CalculatorScema = require('./CalculatorScema')
 
-require('dotenv').config()
-const cors = require('cors');
+// require('dotenv').config()
+dotenv.config()
+// const cors = require('cors');
 
 const corsOption = {
     origin:"*",
